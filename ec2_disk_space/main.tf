@@ -19,7 +19,7 @@ resource "aws_cloudwatch_metric_alarm" "cloudwatch_alarm_win" {
     InstanceId   = "${element(var.instance_ids, (count.index ) / length(var.diskspace_disks))}"
     instance     = "${element(var.diskspace_disks, ((count.index) / length(var.diskspace_disks)))}:"
     objectname   = "LogicalDisk"
-    ImageId      = "${var.ami_id}"
+    ImageId      = "${element(var.ami_id, (count.index ) / length(var.diskspace_disks))}"
     InstanceType = "${var.instance_type}"
   }
 
@@ -48,7 +48,7 @@ resource "aws_cloudwatch_metric_alarm" "cloudwatch_alarm_tux" {
     InstanceId   = "${var.instance_ids[count.index / length(var.diskspace_disks)]}"
     path         = "${var.path[count.index % length(var.diskspace_disks)]}"
     device       = "${var.diskspace_disks[count.index % length(var.diskspace_disks)]}"
-    ImageId      = "${var.ami_id}"
+    ImageId      = "${element(var.ami_id, (count.index ) / length(var.diskspace_disks))}"
     InstanceType = "${var.instance_type}"
     fstype       = "${var.fstype}"
   }

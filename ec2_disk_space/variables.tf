@@ -72,7 +72,10 @@ variable "enable_cw_metrics" {
   default = true
 }
 
-variable "ami_id" {}
+variable "ami_id" {
+  type    = "list"
+  default = []
+}
 
 variable "path" {
   type    = "list"
